@@ -4,3 +4,5 @@ No test since I'm a skibidi sigma
 ## Controls
 WASD - movement\
 F - shoot fireball
+## Resources
+Assets were taken from RyiSnow
