@@ -25,7 +25,7 @@ public class HealthPotion extends Collectable {
     
     @Override
     public void applyEffect() {
-        gp.getPlayer().heal(50);
+        gp.getPlayer().heal(25);
         
     }        
     public void setDefaultValues() {

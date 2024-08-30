@@ -24,7 +24,7 @@ public class OrcLord extends Enemy {
     Font maruMonica;
     private List<Rectangle> hitBoxes;
     private boolean alive;
-    private int shootDelay = 10; 
+    private int shootDelay = 20; 
     private int shootCounter = 0; 
     private int currentRow = 0;    
     public OrcLord(GamePanel gp) {
@@ -130,7 +130,13 @@ public class OrcLord extends Enemy {
     
             // If it's time to shoot the next projectile
             if (shootCounter >= shootDelay) {
-                shootRockInRow(currentRow); // Shoot rock in the current row
+                if (currentHealth >= 500) {
+                    shootRockInRow(currentRow); // Shoot rock in the current row
+                } else {
+                    shootDelay = 10;
+                    shootRockInRow(currentRow); // Shoot rock in the current row
+                    shootRockInRow(gp.getMaxScreenRow() - currentRow - 1); // Shoot rock in the corresponding row (bottom to top)
+                }
                 currentRow++; // Move to the next row
                 shootCounter = 0; // Reset the counter
     
@@ -139,9 +145,7 @@ public class OrcLord extends Enemy {
                     currentRow = 0;
                 }
             }
-    
-            // Other update logic...
-        }
+            }
     }
     
     @Override

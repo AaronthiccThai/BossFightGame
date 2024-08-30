@@ -44,10 +44,10 @@ public class GamePanel extends JPanel implements Runnable {
     private ArrayList<Collectable> collectables = new ArrayList<>();
     // GAME STATE 
     private int gameState;
+    private final int titleState = 0;
     private final int playState = 1;
     private final int pauseState = 2;
-    private final int titleState = 0;
-
+    private final int gameOverState = 3;
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
@@ -126,7 +126,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void paintComponent(Graphics gr) {
         super.paintComponent(gr);
         Graphics2D g = (Graphics2D) gr;        
-        if (gameState == titleState) {
+        if (gameState == titleState || gameState == gameOverState) {
             ui.draw(g);
         } else {
             // Draw the background
@@ -194,6 +194,9 @@ public class GamePanel extends JPanel implements Runnable {
     }
     public int getTitleState() {
         return titleState;
+    }
+    public int getGameOverState() {
+        return gameOverState;
     }
     public Player getPlayer() {
         return player;

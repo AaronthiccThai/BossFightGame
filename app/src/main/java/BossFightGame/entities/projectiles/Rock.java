@@ -22,8 +22,8 @@ public class Rock extends Projectile {
 
     public void setDefaultValues() {
         speed = 1;
-        damage = 10;
-        maxLife = 60;
+        damage = 5;
+        maxLife = 70;
         life = maxLife;
         alive = false;
         getImage();

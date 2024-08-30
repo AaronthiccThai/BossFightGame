@@ -64,10 +64,13 @@ public class UI {
             }
         }
         if (gp.getGameState() == gp.getPlayState()) {
-            drawPlayerScreen();
+            drawRetryScreen();
         }
         if (gp.getGameState() == gp.getPauseState()) {
             drawPauseScreen();
+        }
+        if (gp.getGameState() == gp.getGameOverState()) {
+            drawGameOverScreen();
         }
     }
 
@@ -139,10 +142,11 @@ public class UI {
     }
     
 
-    private void drawPlayerScreen() {
+    private void drawRetryScreen() {
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 30F)); 
         retryButton.draw(g2);
     }
+    
     private void handleMouseClick(int mouseX, int mouseY) {
         if (playButton.contains(mouseX, mouseY)) {
             // Start the game
@@ -157,7 +161,30 @@ public class UI {
             gp.resetGame();
         }        
     }
+    public void drawGameOverScreen() {
+        String text = "Game Over";
+    
+        // Set font and color
+        g2.setColor(Color.WHITE);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 30F)); 
+    
+        // Measure the width of the text
+        int textWidth = g2.getFontMetrics().stringWidth(text);
+    
+        // Calculate the x position to center the text
+        int x = (gp.getMaxScreenCol() * gp.getTileSize() - textWidth) / 2;
+    
+        // Calculate the y position (centered vertically)
+        int y = (gp.getMaxScreenRow() * gp.getTileSize()) / 2;
+    
+        // Draw the string at the calculated position
+        g2.drawString(text, x, y);
 
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 30F)); 
+        retryButton.draw(g2);        
+    }
+    
+    
     private void handleMouseHover(int mouseX, int mouseY) {
         playButton.setHovered(playButton.contains(mouseX, mouseY));
         quitButton.setHovered(quitButton.contains(mouseX, mouseY));

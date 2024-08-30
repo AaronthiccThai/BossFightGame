@@ -59,6 +59,7 @@ public class Player extends Entity {
     }
     @Override
     public void update() {
+        if (currentHealth > 0) {}
         frameCounter++;
         shotCounter++;
         if (frameCounter >= speed) {
@@ -149,6 +150,7 @@ public class Player extends Entity {
         currentHealth -= damage;
         if (currentHealth < 0) {
             currentHealth = 0; // Need to transition to gameover state
+            gp.setGameState(gp.getGameOverState());
         }
     }
     
