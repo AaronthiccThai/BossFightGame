@@ -1,0 +1,96 @@
+package BossFightGame.entities.projectiles;
+
+import BossFightGame.entities.Entity;
+import BossFightGame.entities.Player;
+import BossFightGame.entities.enemies.Enemy;
+import BossFightGame.gamesetup.CollisionChecker;
+import BossFightGame.gamesetup.GamePanel;
+
+public abstract class Projectile extends Entity {
+    protected int speed;
+    protected String direction;
+    protected Entity user;
+    protected CollisionChecker ck;
+    protected int maxLife;
+    protected int life; 
+    protected boolean alive;
+    protected int damage;
+    private int moveCounter = 0;
+    private int moveDelay = 5;    
+    public Projectile(GamePanel gp) {
+        super(gp);
+        this.ck = new CollisionChecker(gp); // Get CollisionChecker from GamePanel
+    
+    }
+
+    public void set(int worldX, int worldY, String direction, boolean alive, Entity user) {
+        System.out.println("THIS IS X:" + worldX +" and this is Y:" + worldY);
+        setX(worldX);
+        setY(worldY);
+        setHitBoxSize(worldX, worldY);
+        this.direction = direction;
+        this.user = user;
+        this.life = maxLife;
+        this.alive = alive;
+    }
+    @Override
+    public void update() {
+        // Collision check and deactivate if necessary
+        if (user instanceof Enemy) {
+            if (ck.checkCollision(gp.getPlayer(), this)) {
+                gp.getPlayer().takeDamage(10); // Placeholder for damage
+                alive = false; // Deactivate after hitting
+            }
+        }
+        // Either the hitbox of the boss is wrong or the projectile is since its shooting way far away. (prob the boss)
+        // If user shoots
+        if (user instanceof Player) {
+            // System.out.println("USER is shootingh");
+            // System.out.println(gp.getBosses())
+            Player p = (Player) user;
+            for (Enemy e : gp.getBosses()) {
+                if (ck.checkCollision(e, this)) {
+                    System.out.println("ARE WE ENTERIN HEERE?");
+                    e.takeDamage(p.getDamage());
+                    alive = false;
+                }
+            }
+
+        }        
+        // Movement logic
+        // Prob something to do with this
+        moveCounter++;
+        if (moveCounter >= moveDelay) {
+            // Movement logic
+            switch (direction) {
+                case "up":
+                    setY(getY() - speed);
+                    break;
+                case "down":
+                    setY(getY() + speed);
+                    break;
+                case "left":
+                    setX(getX() - speed);
+                    break;
+                case "right":
+                    setX(getX() + speed);
+                    break;
+            }
+            moveCounter = 0; // Reset the counter
+        }
+
+        life--;
+        if (life <= 0) {
+            alive = false;
+        }
+    }
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+}

@@ -1,0 +1,23 @@
+- Have different levels
+    - Each with different bosses
+(Last in prio)
+=========================================================================================================
+
+- Need a death state - screen
+- Maybe have a menu screen (with retry and quit)
+- Implement player life (first)
+- Implement Boss life 
+=========================================================================================================
+
+- Have collectable entities that recover hp and increase damage
+- Maybe have objects that player needs to go over to damage the boss (rather than attacking)
+- Implement overlap method on objects (pickup)
+
+=========================================================================================================
+- Implement projectiles from bosses
+- Implement collision mechanics for mobs and players (second)
+- Implement object interaction (might not need this since we aren't interacting with anything)
+
+
+
+
