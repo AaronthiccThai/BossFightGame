@@ -53,8 +53,6 @@ public abstract class Projectile extends Entity {
             }
 
         }        
-        // Movement logic
-        // Prob something to do with this
         moveCounter++;
         if (moveCounter >= moveDelay) {
             // Movement logic

@@ -36,7 +36,6 @@ public class HealthPotion extends Collectable {
     }
     @Override
     public void draw(Graphics2D g2) {
-        // Implement drawing logic here
         if (exist) {
             g2.drawImage(img, getX(), getY(), gp.getTileSize(), gp.getTileSize(), null);
         }    
