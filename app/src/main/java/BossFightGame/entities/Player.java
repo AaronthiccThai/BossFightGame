@@ -41,7 +41,8 @@ public class Player extends Entity {
         setY(8);
         this.speed = 10; 
         this.frameCounter = 0; 
-        this.damage = 100;
+        this.damage = 50;
+        this.currentHealth = maxHealth;
         direction = "down";
         projectile = new FireBall(gp);
         
