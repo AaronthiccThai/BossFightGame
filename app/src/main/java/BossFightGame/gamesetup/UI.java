@@ -131,7 +131,7 @@ public class UI {
     
         x -= textWidth / 2;
         y += textHeight / 4;
-    
+        
         // Draw the pause text
         g2.setColor(Color.WHITE); 
         g2.drawString(text, x, y);
