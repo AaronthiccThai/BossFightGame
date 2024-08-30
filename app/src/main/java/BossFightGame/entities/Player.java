@@ -41,7 +41,7 @@ public class Player extends Entity {
         setY(8);
         this.speed = 10; 
         this.frameCounter = 0; 
-        this.damage = 10;
+        this.damage = 100;
         direction = "down";
         projectile = new FireBall(gp);
         

@@ -54,9 +54,9 @@ public class FireBall extends Projectile {
 
 
         // Draw hitbox -- for DEBUG
-        int hitBoxDrawX = drawX + solidArea.x;
-        int hitBoxDrawY = drawY + solidArea.y;
-        g2.setColor(Color.RED);
-        g2.drawRect(hitBoxDrawX, hitBoxDrawY, solidArea.width, solidArea.height);     
+        // int hitBoxDrawX = drawX + solidArea.x;
+        // int hitBoxDrawY = drawY + solidArea.y;
+        // g2.setColor(Color.RED);
+        // g2.drawRect(hitBoxDrawX, hitBoxDrawY, solidArea.width, solidArea.height);     
     }
 }

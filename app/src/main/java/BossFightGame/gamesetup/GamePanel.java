@@ -114,6 +114,9 @@ public class GamePanel extends JPanel implements Runnable {
                 c.update();
 
             }
+            for (Enemy b : bosses) {
+                b.update();
+            }
         } else if (gameState == pauseState) {
             
         }
