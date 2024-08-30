@@ -19,7 +19,6 @@ public class KeyBoardHandler implements KeyListener {
 
         } else {
             if (keyCode == KeyEvent.VK_F) {
-                System.out.println("HI");
                 shootKey = true;
             }
             if (keyCode == KeyEvent.VK_W || keyCode == KeyEvent.VK_UP) {

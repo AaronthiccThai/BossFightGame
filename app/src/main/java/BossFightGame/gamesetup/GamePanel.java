@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import BossFightGame.entities.Entity;
 import BossFightGame.entities.Player;
 import BossFightGame.entities.collectables.Collectable;
+import BossFightGame.entities.collectables.HealthPotion;
 import BossFightGame.entities.enemies.Enemy;
 import BossFightGame.entities.enemies.OrcLord;
 import BossFightGame.entities.projectiles.Projectile;
@@ -72,10 +73,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void setUpGame() {
         // TEMP PROB HAVE A CLASS THAT ADDS ALL THE ENTITIES
         gameState = titleState;
-        OrcLord orcLord = new OrcLord(this);
-        bosses.add(orcLord);
-        entities.add(orcLord);
- 
+        setUpEntities();
     }
 
     @Override
@@ -103,7 +101,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
         if (gameState == playState) {
             player.update();
-            // projectile is empty
+            // Need to update the bosses too
             Iterator<Projectile> iterator = projectiles.iterator();
             while (iterator.hasNext()) {
                 Projectile p = iterator.next();
@@ -136,7 +134,11 @@ public class GamePanel extends JPanel implements Runnable {
             }
             for (Projectile p : projectiles) {
                 p.draw(g);
-            }            
+            }    
+            
+            for (Collectable c : collectables) {
+                c.draw(g);
+            }
             ui.draw(g);
         }
 
@@ -162,7 +164,13 @@ public class GamePanel extends JPanel implements Runnable {
             e.setDefaultValues();
         }
     }
-    
+
+    private void setUpEntities() {
+        OrcLord orcLord = new OrcLord(this);
+        bosses.add(orcLord);
+        HealthPotion hP = new HealthPotion(this);
+        collectables.add(hP);
+    }    
     public void addEntities() {
         entities.add(player);
     }

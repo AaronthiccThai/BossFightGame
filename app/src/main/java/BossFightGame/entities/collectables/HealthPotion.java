@@ -1,6 +1,7 @@
 package BossFightGame.entities.collectables;
 
 import BossFightGame.entities.Entity;
+import BossFightGame.entities.Player;
 import BossFightGame.gamesetup.GamePanel;
 
 import java.awt.Graphics2D;
@@ -28,18 +29,24 @@ public class HealthPotion extends Collectable {
         
     }        
     public void setDefaultValues() {
-        exist = true;
+        exist = false;
         getImage();
-        setRandomPosition();
+        gp.addCollectables(this);
+
     }
     @Override
     public void draw(Graphics2D g2) {
         // Implement drawing logic here
-        g2.drawImage(img, getX(), getY(), gp.getTileSize(), gp.getTileSize(), null);
+        if (exist) {
+            g2.drawImage(img, getX(), getY(), gp.getTileSize(), gp.getTileSize(), null);
+        }    
     }
 
     @Override
     public void update() {
+        if (exist) {
+            onOverlap(gp.getPlayer());
+        }
         if (!exist) {
             spawnTimer--;
             if (spawnTimer <= 0) {
@@ -50,6 +57,17 @@ public class HealthPotion extends Collectable {
         }
     }
 
+    @Override 
+    public void onOverlap(Entity entity) {
+        if ((getX() / gp.getTileSize())== entity.getX() && (getY() / gp.getTileSize()) == entity.getY()) {
+            System.out.println("X AND Y ARE SAME");
+            if (entity instanceof Player) {
+                applyEffect();
+                exist = false;
+                System.out.println("Player collected HealthPotion and healed by 50.");
+            }            
+        }
+    }
     public void getImage() {
         img = setup("/collectables/potion_red", gp.getTileSize(), gp.getTileSize());
     }
@@ -70,9 +88,8 @@ public class HealthPotion extends Collectable {
         if (!emptySpots.isEmpty()) {
             Random rand = new Random();
             int[] selectedSpot = emptySpots.get(rand.nextInt(emptySpots.size()));
-            setX(selectedSpot[0]);
-            setY(selectedSpot[1]);
-            gp.addCollectables(this);
+            setX(selectedSpot[0] * gp.getTileSize());
+            setY(selectedSpot[1] * gp.getTileSize());
         }
     }
 

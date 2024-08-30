@@ -24,7 +24,6 @@ public abstract class Projectile extends Entity {
     }
 
     public void set(int worldX, int worldY, String direction, boolean alive, Entity user) {
-        System.out.println("THIS IS X:" + worldX +" and this is Y:" + worldY);
         setX(worldX);
         setY(worldY);
         setHitBoxSize(worldX, worldY);
@@ -45,12 +44,9 @@ public abstract class Projectile extends Entity {
         // Either the hitbox of the boss is wrong or the projectile is since its shooting way far away. (prob the boss)
         // If user shoots
         if (user instanceof Player) {
-            // System.out.println("USER is shootingh");
-            // System.out.println(gp.getBosses())
             Player p = (Player) user;
             for (Enemy e : gp.getBosses()) {
                 if (ck.checkCollision(e, this)) {
-                    System.out.println("ARE WE ENTERIN HEERE?");
                     e.takeDamage(p.getDamage());
                     alive = false;
                 }

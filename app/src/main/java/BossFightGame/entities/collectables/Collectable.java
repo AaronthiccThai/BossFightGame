@@ -12,4 +12,6 @@ public abstract class Collectable extends Entity {
         this.gp = gp;
     }
     public abstract void applyEffect();
+
+    public abstract void onOverlap(Entity entity);
 }
