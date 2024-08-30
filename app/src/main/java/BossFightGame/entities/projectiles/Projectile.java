@@ -19,7 +19,7 @@ public abstract class Projectile extends Entity {
     private int moveDelay = 5;    
     public Projectile(GamePanel gp) {
         super(gp);
-        this.ck = new CollisionChecker(gp); // Get CollisionChecker from GamePanel
+        this.ck = new CollisionChecker(gp); 
     
     }
 
@@ -42,7 +42,7 @@ public abstract class Projectile extends Entity {
             }
         }
         // Either the hitbox of the boss is wrong or the projectile is since its shooting way far away. (prob the boss)
-        // If user shoots
+
         if (user instanceof Player) {
             Player p = (Player) user;
             for (Enemy e : gp.getBosses()) {
@@ -55,7 +55,6 @@ public abstract class Projectile extends Entity {
         }        
         moveCounter++;
         if (moveCounter >= moveDelay) {
-            // Movement logic
             switch (direction) {
                 case "up":
                     setY(getY() - speed);

@@ -149,7 +149,7 @@ public class Player extends Entity {
     public void takeDamage(int damage) {
         currentHealth -= damage;
         if (currentHealth < 0) {
-            currentHealth = 0; // Need to transition to gameover state
+            currentHealth = 0; 
             gp.setGameState(gp.getGameOverState());
         }
     }
@@ -157,7 +157,7 @@ public class Player extends Entity {
     public void heal(int healAmount) {
         currentHealth += healAmount;
         if (currentHealth > maxHealth) {
-            currentHealth = maxHealth; // Prevent health from exceeding max health
+            currentHealth = maxHealth;
         }
     }
     

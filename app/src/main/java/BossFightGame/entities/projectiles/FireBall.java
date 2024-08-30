@@ -2,7 +2,6 @@ package BossFightGame.entities.projectiles;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.awt.Color;
 
 import BossFightGame.gamesetup.GamePanel;
 

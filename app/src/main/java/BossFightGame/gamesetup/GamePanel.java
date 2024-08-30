@@ -71,7 +71,6 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void setUpGame() {
-        // TEMP PROB HAVE A CLASS THAT ADDS ALL THE ENTITIES
         gameState = titleState;
         setUpEntities();
     }
@@ -101,7 +100,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
         if (gameState == playState) {
             player.update();
-            // Need to update the bosses too
+            // Might change this to make it more simpler
             Iterator<Projectile> iterator = projectiles.iterator();
             while (iterator.hasNext()) {
                 Projectile p = iterator.next();

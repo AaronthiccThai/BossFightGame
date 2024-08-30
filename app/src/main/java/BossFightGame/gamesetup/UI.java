@@ -121,23 +121,19 @@ public class UI {
     private void drawPauseScreen() {
         String text = "PAUSE";
     
-        // Set a larger font size for the pause text
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 100F)); // Adjust the size to your preference
     
-        // Calculate the position to draw the text in the center
         int x = gp.getMaxScreenCol() * gp.getTileSize() / 2;
         int y = gp.getMaxScreenRow() * gp.getTileSize() / 2;
     
-        // Measure the width of the text to center it properly
         int textWidth = g2.getFontMetrics().stringWidth(text);
         int textHeight = g2.getFontMetrics().getHeight();
     
-        // Adjust x to center the text
         x -= textWidth / 2;
-        y += textHeight / 4; // Adjust to ensure vertical centering (it's usually half of the font size)
+        y += textHeight / 4;
     
         // Draw the pause text
-        g2.setColor(Color.WHITE); // Set the text color
+        g2.setColor(Color.WHITE); 
         g2.drawString(text, x, y);
     }
     
@@ -163,23 +159,16 @@ public class UI {
     }
     public void drawGameOverScreen() {
         String text = "Game Over";
-    
-        // Set font and color
         g2.setColor(Color.WHITE);
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 30F)); 
     
         // Measure the width of the text
         int textWidth = g2.getFontMetrics().stringWidth(text);
     
-        // Calculate the x position to center the text
         int x = (gp.getMaxScreenCol() * gp.getTileSize() - textWidth) / 2;
-    
-        // Calculate the y position (centered vertically)
         int y = (gp.getMaxScreenRow() * gp.getTileSize()) / 2;
-    
-        // Draw the string at the calculated position
-        g2.drawString(text, x, y);
 
+        g2.drawString(text, x, y);
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 30F)); 
         retryButton.draw(g2);        
     }
