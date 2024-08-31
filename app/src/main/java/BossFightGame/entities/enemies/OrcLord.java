@@ -139,6 +139,7 @@ public class OrcLord extends Enemy {
                     shootRockInRow(currentRow); 
                     shootRockInRow(gp.getMaxScreenRow() - currentRow - 1); 
                 } else {
+                    damage = 10;
                     shootDelay = 30; 
                     if (currentRow % 2 != 0) {
                         // Shoot all odd rows
