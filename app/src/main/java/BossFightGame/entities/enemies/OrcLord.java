@@ -139,14 +139,15 @@ public class OrcLord extends Enemy {
                     shootRockInRow(currentRow); 
                     shootRockInRow(gp.getMaxScreenRow() - currentRow - 1); 
                 } else {
-                    damage = 10;
-                    shootDelay = 30; 
                     if (currentRow % 2 != 0) {
+                        shootDelay = 40; 
+
                         // Shoot all odd rows
                         for (int i = 1; i < gp.getMaxScreenRow(); i += 2) {
                             shootRockInRow(i);
                         }
                     }
+                    shootDelay = 20;
                     shootRockInRow(currentRow); 
                     shootRockInRow(gp.getMaxScreenRow() - currentRow - 1); 
 
