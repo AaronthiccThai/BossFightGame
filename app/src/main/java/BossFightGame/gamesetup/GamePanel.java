@@ -13,6 +13,7 @@ import BossFightGame.entities.Entity;
 import BossFightGame.entities.Player;
 import BossFightGame.entities.collectables.Collectable;
 import BossFightGame.entities.collectables.HealthPotion;
+import BossFightGame.entities.collectables.ManaPotion;
 import BossFightGame.entities.enemies.Enemy;
 import BossFightGame.entities.enemies.OrcLord;
 import BossFightGame.entities.projectiles.Projectile;
@@ -37,11 +38,16 @@ public class GamePanel extends JPanel implements Runnable {
     Player player = new Player(this, keyHandler);
     private UI ui = new UI(this);
 
-    // Placeholder to initialise boss,
+    // ENTITIES
     private ArrayList<Projectile> projectiles = new ArrayList<>();
     private ArrayList<Enemy> bosses = new ArrayList<>();
     private ArrayList<Entity> entities = new ArrayList<>();
     private ArrayList<Collectable> collectables = new ArrayList<>();
+
+    OrcLord orcLord = new OrcLord(this);
+    HealthPotion hP = new HealthPotion(this);
+    ManaPotion mP = new ManaPotion(this);    
+    
     // GAME STATE 
     private int gameState;
     private final int titleState = 0;
@@ -72,7 +78,6 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setUpGame() {
         gameState = titleState;
-        setUpEntities();
     }
 
     @Override
@@ -167,12 +172,6 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    private void setUpEntities() {
-        OrcLord orcLord = new OrcLord(this);
-        bosses.add(orcLord);
-        HealthPotion hP = new HealthPotion(this);
-        collectables.add(hP);
-    }    
     public void addEntities() {
         entities.add(player);
     }
@@ -214,6 +213,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void addCollectables(Collectable c) {
         collectables.add(c);
+        entities.add(c);
     }
 
     public ArrayList<Collectable> getCollectables() {
@@ -221,6 +221,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
     public void addBosses(Enemy e) {
         bosses.add(e);
+        entities.add(e);
     }
     public ArrayList<Enemy> getBosses() {
         return bosses;

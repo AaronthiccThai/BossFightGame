@@ -9,6 +9,7 @@ public abstract class Enemy extends Entity{
     public Enemy(GamePanel gp) {
         super(gp);
         this.gp = gp;
+        gp.addBosses(this);
     }
 
     public abstract void takeDamage(int damage);
