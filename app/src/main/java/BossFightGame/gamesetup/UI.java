@@ -30,7 +30,6 @@ public class UI {
             e.printStackTrace();
         }
 
-        // Initialize buttons in constructor
         int screenWidth = gp.getMaxScreenCol() * gp.getTileSize();
         int buttonWidth = 150;
         int buttonHeight = 60;
@@ -38,7 +37,6 @@ public class UI {
         playButton = new Button("Play", (screenWidth - buttonWidth) / 2, 500, buttonWidth, buttonHeight);
         quitButton = new Button("Quit", (screenWidth - buttonWidth) / 2, 600, buttonWidth, buttonHeight);
         retryButton = new Button("Retry", screenWidth - buttonWidth - 20, 20, buttonWidth, buttonHeight);
-        // Add mouse listener for clicks
         gp.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -72,6 +70,9 @@ public class UI {
         if (gp.getGameState() == gp.getGameOverState()) {
             drawGameOverScreen();
         }
+        if (gp.getGameState() == gp.getGameWinState()) {
+            drawWinGameScreen();
+        }
     }
 
     private void drawTitleScreen() throws IOException {
@@ -95,7 +96,6 @@ public class UI {
         g2.setColor(Color.WHITE);
         g2.drawString(text, x, y);
 
-        // Load and draw the image
         try {
             img = ImageIO.read(getClass().getResourceAsStream("/player/boy_down_1.png"));
         } catch (IOException e) {
@@ -109,7 +109,7 @@ public class UI {
         int scaledWidth = imgWidth * 15;
         int scaledHeight = imgHeight * 15; 
 
-        x = (screenWidth - scaledWidth) / 2; // Center the scaled image horizontally
+        x = (screenWidth - scaledWidth) / 2; 
         y += textHeight + 50; // Position the image below the title
         g2.drawImage(img, x, y, scaledWidth, scaledHeight, null);
 
@@ -121,7 +121,7 @@ public class UI {
     private void drawPauseScreen() {
         String text = "PAUSE";
     
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 100F)); // Adjust the size to your preference
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 100F));
     
         int x = gp.getMaxScreenCol() * gp.getTileSize() / 2;
         int y = gp.getMaxScreenRow() * gp.getTileSize() / 2;
@@ -173,6 +173,23 @@ public class UI {
         retryButton.draw(g2);        
     }
     
+    public void drawWinGameScreen() {
+        String text = "GGS, You've won";
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50F)); 
+    
+        int x = gp.getMaxScreenCol() * gp.getTileSize() / 2;
+        int y = gp.getMaxScreenRow() * gp.getTileSize() / 2;
+    
+        int textWidth = g2.getFontMetrics().stringWidth(text);
+        int textHeight = g2.getFontMetrics().getHeight();
+    
+        x -= textWidth / 2;
+        y += textHeight / 4;
+        
+        // Draw the pause text
+        g2.setColor(Color.WHITE); 
+        g2.drawString(text, x, y);
+    }
     
     private void handleMouseHover(int mouseX, int mouseY) {
         playButton.setHovered(playButton.contains(mouseX, mouseY));

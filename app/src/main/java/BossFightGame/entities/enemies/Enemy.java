@@ -17,4 +17,6 @@ public abstract class Enemy extends Entity{
     public abstract int getCurrentHealth();
 
     public abstract void setDefaultValues();
+    
+    public abstract int getDamage();
 }

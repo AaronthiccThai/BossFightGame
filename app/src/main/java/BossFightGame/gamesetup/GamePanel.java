@@ -54,6 +54,7 @@ public class GamePanel extends JPanel implements Runnable {
     private final int playState = 1;
     private final int pauseState = 2;
     private final int gameOverState = 3;
+    private final int winGameState = 4;
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
@@ -111,7 +112,7 @@ public class GamePanel extends JPanel implements Runnable {
                 Projectile p = iterator.next();
                 p.update();
                 if (!p.isAlive()) {
-                    iterator.remove(); // Remove the projectile if it's not alive
+                    iterator.remove(); 
                 }
             }
             for (Collectable c : collectables) {
@@ -121,16 +122,17 @@ public class GamePanel extends JPanel implements Runnable {
             for (Enemy b : bosses) {
                 b.update();
             }
-        } else if (gameState == pauseState) {
-            
-        }
+        } 
     }
 
     @Override
     public void paintComponent(Graphics gr) {
         super.paintComponent(gr);
-        Graphics2D g = (Graphics2D) gr;        
-        if (gameState == titleState || gameState == gameOverState) {
+        Graphics2D g = (Graphics2D) gr;  
+        if (!bosses.isEmpty()) {
+            checkBossDefeated();
+        }      
+        if (gameState == titleState || gameState == gameOverState || gameState == winGameState) {
             ui.draw(g);
         } else {
             // Draw the background
@@ -158,10 +160,10 @@ public class GamePanel extends JPanel implements Runnable {
         // Draw the grid lines
         g.setColor(gridColor);
         for (int i = 0; i <= maxScreenRow; i++) {
-            g.drawLine(0, i * tileSize, screenWidth, i * tileSize); // Horizontal lines
+            g.drawLine(0, i * tileSize, screenWidth, i * tileSize); 
         }
         for (int j = 0; j <= maxScreenCol; j++) {
-            g.drawLine(j * tileSize, 0, j * tileSize, screenHeight); // Vertical lines
+            g.drawLine(j * tileSize, 0, j * tileSize, screenHeight); 
         }
     }
     public void resetGame() {
@@ -196,6 +198,9 @@ public class GamePanel extends JPanel implements Runnable {
     public int getGameOverState() {
         return gameOverState;
     }
+    public int getGameWinState() {
+        return winGameState;
+    }
     public Player getPlayer() {
         return player;
     }
@@ -225,6 +230,17 @@ public class GamePanel extends JPanel implements Runnable {
     }
     public ArrayList<Enemy> getBosses() {
         return bosses;
+    }
+    public void checkBossDefeated() {
+        int check = 0;
+        for (Enemy e : bosses) {
+            if (e.getCurrentHealth() <= 0) {
+                check++;
+            }
+        }
+        if (check == bosses.size()) {
+            gameState = winGameState;
+        }
     }
 
 }

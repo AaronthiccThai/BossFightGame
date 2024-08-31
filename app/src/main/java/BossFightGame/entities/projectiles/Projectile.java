@@ -37,7 +37,8 @@ public abstract class Projectile extends Entity {
         // Collision check and deactivate if necessary
         if (user instanceof Enemy) {
             if (ck.checkCollision(gp.getPlayer(), this)) {
-                gp.getPlayer().takeDamage(10); // Placeholder for damage
+                Enemy e = (Enemy) user;
+                gp.getPlayer().takeDamage(e.getDamage()); // Placeholder for damage
                 alive = false; // Deactivate after hitting
             }
         }

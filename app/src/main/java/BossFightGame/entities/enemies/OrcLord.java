@@ -20,6 +20,7 @@ public class OrcLord extends Enemy {
     GamePanel gp;
     private int maxHealth;
     private int currentHealth;
+    private int damage;
     private BufferedImage left1;
     Font maruMonica;
     private List<Rectangle> hitBoxes;
@@ -53,19 +54,20 @@ public class OrcLord extends Enemy {
         setX(15);
         setY(8);
         setHitBoxes();
+        this.damage = 25;
         this.maxHealth = 1000;
         this.currentHealth = maxHealth;    
         this.alive = true;     
     }
     public void setHitBoxes() {
         int tileSize = gp.getTileSize();
-        int newX = getX() - 1;
+        int newX = getX();
         // Hitboxes are quite weird
-        hitBoxes.add(new Rectangle(newX * tileSize, (getY() + -1) * tileSize, tileSize, tileSize));
-        hitBoxes.add(new Rectangle(newX * tileSize , getY() * tileSize, tileSize, tileSize));
-        hitBoxes.add(new Rectangle((getX() + 1) * tileSize, getY() * tileSize, tileSize, tileSize));
-        hitBoxes.add(new Rectangle(newX * tileSize, (getY() + 1) * tileSize, tileSize, tileSize));
-        hitBoxes.add(new Rectangle((getX() + 1) * tileSize, (getY() + 1) * tileSize, tileSize, tileSize));
+        hitBoxes.add(new Rectangle(newX * tileSize, (getY()) * tileSize, tileSize, tileSize));
+        // hitBoxes.add(new Rectangle(newX * tileSize , getY() * tileSize, tileSize, tileSize));
+        // hitBoxes.add(new Rectangle((getX() + 1) * tileSize, getY() * tileSize, tileSize, tileSize));
+        // hitBoxes.add(new Rectangle(newX * tileSize, (getY() + 1) * tileSize, tileSize, tileSize));
+        // hitBoxes.add(new Rectangle((getX() + 1) * tileSize, (getY() + 1) * tileSize, tileSize, tileSize));
     }
     public void getImage() {
         try {
@@ -79,10 +81,10 @@ public class OrcLord extends Enemy {
     public void draw(Graphics2D g2) {
         if (alive) {
             // Draw Orc Lord
-            int drawX = (getX() - 1) * gp.getTileSize();
+            int drawX = (getX()) * (gp.getTileSize() - 1);
             int drawY = getY() * gp.getTileSize();
-            int scaleX = 6;
-            int scaleY = 4;
+            int scaleX = 3;
+            int scaleY = 1;
             int scaledWidth = gp.getTileSize() * scaleX;
             int scaledHeight = gp.getTileSize() * scaleY;
             int adjustedDrawX = drawX - (scaledWidth - gp.getTileSize()) / 2;
@@ -90,10 +92,10 @@ public class OrcLord extends Enemy {
             g2.drawImage(left1, adjustedDrawX, adjustedDrawY, scaledWidth, scaledHeight, null);
 
             // Draw hitbox -- for DEBUG
-            // g2.setColor(Color.RED);
-            // for (Rectangle hitBox : hitBoxes) {
-            //     g2.drawRect(hitBox.x, hitBox.y, hitBox.width, hitBox.height);
-            // } 
+            g2.setColor(Color.RED);
+            for (Rectangle hitBox : hitBoxes) {
+                g2.drawRect(hitBox.x, hitBox.y, hitBox.width, hitBox.height);
+            } 
 
             // Draw Health Bar
             int barWidth = gp.getTileSize() * 4; 
@@ -152,7 +154,7 @@ public class OrcLord extends Enemy {
     public void takeDamage(int damage) {
         currentHealth -= damage;
         if (currentHealth < 0) {
-            currentHealth = 0; // Need to transition to gameover state
+            currentHealth = 0;
             alive = false;
         }
     }
@@ -166,13 +168,17 @@ public class OrcLord extends Enemy {
         Rock rock = new Rock(gp);
         int startX = getX(); // OrcLord's X position
         int startY = row; // The specified row
-        String direction = "left"; // You can change the direction if needed
+        String direction = "left";
         boolean alive = true;
     
         // Use the set() method to initialize the projectile
         rock.set(startX, startY, direction, alive, this);
     
-        gp.addProjectile(rock); // Add the rock to the game panel's projectile list
+        gp.addProjectile(rock);
+    }
+    @Override
+    public int getDamage() {
+        return damage;
     }
 }
 

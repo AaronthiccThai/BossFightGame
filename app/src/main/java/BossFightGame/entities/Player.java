@@ -35,11 +35,10 @@ public class Player extends Entity {
         super(gp);
         this.gp = gp;
         this.keyHandler = keyHandler;
+        this.maxHealth = 100;
         setDefaultValues();
         getPlayerImage();
         setHitBoxSize(gp.getTileSize(), gp.getTileSize());
-        this.maxHealth = 100;
-        this.currentHealth = maxHealth;
     }
 
     public void setDefaultValues() {
@@ -96,20 +95,19 @@ public class Player extends Entity {
             newX = Math.max(0, Math.min(newX, gp.getMaxScreenCol() - 1));
             newY = Math.max(0, Math.min(newY, gp.getMaxScreenRow() - 1));
 
-            // Update player's position and hitbox
             setX(newX);
             setY(newY);
 
-            frameCounter = 0; // Reset the frame counter after moving
+            frameCounter = 0; 
         }
         if (keyHandler.getShotKey() && !projectile.isAlive() && shotCounter >= 30 && currentMana >= 25) {
             projectile.set(getX(), getY(), direction, true, this);
             gp.addProjectile(projectile);
-            currentMana -= 25; // Reduce mana on shot
+            currentMana -= 25; 
             shotCounter = 0;
         }
 
-        regenerateMana(); // Regenerate mana over time
+        regenerateMana(); 
     }
 
     private void regenerateMana() {
@@ -188,15 +186,15 @@ public class Player extends Entity {
         g2.drawRect(barX, barY, barWidth, barHeight);
 
         // Draw hitbox -- for DEBUG
-        int hitBoxDrawX = drawX;
-        int hitBoxDrawY = drawY;
-        g2.setColor(Color.RED);
-        g2.drawRect(hitBoxDrawX, hitBoxDrawY, solidArea.width, solidArea.height);
+        // int hitBoxDrawX = drawX;
+        // int hitBoxDrawY = drawY;
+        // g2.setColor(Color.RED);
+        // g2.drawRect(hitBoxDrawX, hitBoxDrawY, solidArea.width, solidArea.height);
     }
 
     public void takeDamage(int damage) {
         currentHealth -= damage;
-        if (currentHealth < 0) {
+        if (currentHealth <= 0) {
             currentHealth = 0;
             gp.setGameState(gp.getGameOverState());
         }
