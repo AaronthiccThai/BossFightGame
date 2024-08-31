@@ -46,7 +46,7 @@ public class Player extends Entity {
         setY(8);
         this.speed = 10;
         this.frameCounter = 0;
-        this.damage = 50;
+        this.damage = 100;
         this.currentHealth = maxHealth;
         this.maxMana = 50;
         this.currentMana = maxMana;

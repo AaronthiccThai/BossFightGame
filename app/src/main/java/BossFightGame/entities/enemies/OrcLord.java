@@ -132,12 +132,24 @@ public class OrcLord extends Enemy {
     
             // If it's time to shoot the next projectile
             if (shootCounter >= shootDelay) {
-                if (currentHealth >= 500) {
-                    shootRockInRow(currentRow); // Shoot rock in the current row
+                if (currentHealth >= 666) {
+                    shootRockInRow(currentRow);
+                } else if (currentHealth >= 333) {
+                    shootDelay = 15;
+                    shootRockInRow(currentRow); 
+                    shootRockInRow(gp.getMaxScreenRow() - currentRow - 1); 
                 } else {
-                    shootDelay = 10;
-                    shootRockInRow(currentRow); // Shoot rock in the current row
-                    shootRockInRow(gp.getMaxScreenRow() - currentRow - 1); // Shoot rock in the corresponding row (bottom to top)
+                    shootDelay = 30; 
+                    if (currentRow % 2 != 0) {
+                        // Shoot all odd rows
+                        for (int i = 1; i < gp.getMaxScreenRow(); i += 2) {
+                            shootRockInRow(i);
+                        }
+                    }
+                    shootRockInRow(currentRow); 
+                    shootRockInRow(gp.getMaxScreenRow() - currentRow - 1); 
+
+
                 }
                 currentRow++; // Move to the next row
                 shootCounter = 0; // Reset the counter
@@ -147,7 +159,7 @@ public class OrcLord extends Enemy {
                     currentRow = 0;
                 }
             }
-            }
+        }
     }
     
     @Override
@@ -176,6 +188,21 @@ public class OrcLord extends Enemy {
     
         gp.addProjectile(rock);
     }
+
+    public void shootRockInColumn(int col) {
+        for (int row = 0; row < gp.getMaxScreenRow(); row++) {
+            Rock rock = new Rock(gp);
+            int startX = col; // The specified column
+            int startY = row; // Start at the top and go down the rows
+            String direction = "down";
+            boolean alive = true;
+    
+            // Use the set() method to initialize the projectile
+            rock.set(startX, startY, direction, alive, this);
+    
+            gp.addProjectile(rock);
+        }
+    }   
     @Override
     public int getDamage() {
         return damage;
