@@ -54,7 +54,7 @@ public class OrcLord extends Enemy {
         setX(15);
         setY(8);
         setHitBoxes();
-        this.damage = 25;
+        this.damage = 20;
         this.maxHealth = 1000;
         this.currentHealth = maxHealth;    
         this.alive = true;     
